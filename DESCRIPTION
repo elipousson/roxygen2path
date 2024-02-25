@@ -1,0 +1,24 @@
+Package: roxygen2path
+Title: Make Roxygen2 Docs from a File Path or Directory
+Version: 0.0.0.9000
+Authors@R: 
+    person("Eli", "Pousson", , "eli.pousson@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-8280-1706"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Imports: 
+    cli,
+    fs,
+    glue,
+    rlang (>= 1.1.0),
+    roxygen2,
+    rprojroot,
+    rstudioapi,
+    sinew (>= 0.4.0),
+    usethis,
+    withr
+Remotes: 
+    elipousson/sinew
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

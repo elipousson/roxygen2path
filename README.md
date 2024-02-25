@@ -1,0 +1,33 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# roxygen2path
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+The goal of roxygen2path is to make it easy to document scripts with
+{roxygen2} style documentation and then render and load that
+documentation by creating a mock package.
+
+## Installation
+
+You can install the development version of `{roxygen2path}` like so:
+
+``` r
+# pak::pkg_install("elipousson/roxygen2path")
+```
+
+The package suggests my fork of the `{sinew}` package:
+
+``` r
+# pak::pkg_install("elipousson/sinew")
+```
+
+## Related packages
+
+This package is significantly inspired by the [document
+package](https://gitlab.com/fvafrcu/document).
