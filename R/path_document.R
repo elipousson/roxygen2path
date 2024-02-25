@@ -130,7 +130,7 @@ path_document <- function(path,
   new_r_path <- path(pkg_dir, "R")
 
   if (is_dir(path)) {
-    path <- dir_ls(glob = glob)
+    path <- dir_ls(path, glob = glob)
   }
 
   file_copy(
