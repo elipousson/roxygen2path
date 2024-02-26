@@ -19,9 +19,25 @@ obj_roxy(obj, title = NULL, description = NULL, markdown = TRUE, ...)
 \item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
 
-\item{...}{additional parameters passed to \code{makeOxygen}}
+\item{...}{
+  Arguments passed on to \code{\link[sinew:makeOxygen]{makeOxygen}}
+  \describe{
+    \item{\code{add_default}}{boolean to add defaults values to the end of the PARAM
+fields, Default: TRUE}
+    \item{\code{add_fields}}{character vector to add additional roxygen2 fields,
+Default: c("details","examples","seealso","rdname","export")}
+    \item{\code{use_dictionary}}{character, path_to_dictionary, Default: NULL}
+    \item{\code{use_labels}}{boolean to use label attribute of data frame columns to
+fill column description values. Ignored if obj is a function or vector.
+Default: FALSE.}
+    \item{\code{scope}}{The scope of transformations: \code{"simple"} runs only transformations
+that shouldn't substantially change the resulting \code{.Rd} files, \code{"full"} runs
+all transformations. In larger packages, run \code{"none"}, double-check and track
+the changes, and then run \code{"simple"} and then \code{"full"}.}
+  }}
 
-\item{obj}{function or name of function}
+\item{obj}{function or name of function, a data frame, or a vector (strings
+are interpreted as function names).}
 
 \item{title, description}{Optional title and description values to use}
 }

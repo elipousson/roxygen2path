@@ -102,7 +102,7 @@ path_document <- function(path,
                           clean = FALSE,
                           quiet = FALSE,
                           allow_file = TRUE,
-                          glob = "*.R",
+                          regexp = "\\.[rR]$",
                           ...) {
   if (quiet) {
     rlang::local_options(
@@ -130,7 +130,7 @@ path_document <- function(path,
   new_r_path <- path(pkg_dir, "R")
 
   if (is_dir(path)) {
-    path <- dir_ls(path, glob = glob)
+    path <- dir_ls(path, regexp = regexp)
   }
 
   file_copy(
@@ -150,11 +150,13 @@ path_document <- function(path,
     }
   )
 
-  roxygen2::roxygenise(
-    package.dir = pkg_dir,
-    roclets = roclets,
-    load_code = load_code,
-    clean = clean
+  suppressPackageStartupMessages(
+    roxygen2::roxygenise(
+      package.dir = pkg_dir,
+      roclets = roclets,
+      load_code = load_code,
+      clean = clean
+    )
   )
 }
 

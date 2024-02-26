@@ -17,7 +17,7 @@ path_document(
   clean = FALSE,
   quiet = FALSE,
   allow_file = TRUE,
-  glob = "*.R",
+  regexp = "\\\\.[rR]$",
   ...
 )
 
@@ -33,7 +33,7 @@ path_roxygenise(
   clean = FALSE,
   quiet = FALSE,
   allow_file = TRUE,
-  glob = "*.R",
+  regexp = "\\\\.[rR]$",
   ...
 )
 }
@@ -45,7 +45,7 @@ created, provided that the parent path exists.}
 overriding default values. See \code{\link[usethis:use_description]{use_description()}} for how you can set
 personalized defaults using package options.}
 
-\item{glob}{A wildcard aka globbing pattern (e.g. \verb{*.csv}) passed on to \code{\link[=grep]{grep()}} to filter paths.}
+\item{regexp}{A regular expression (e.g. \verb{[.]csv$}) passed on to \code{\link[=grep]{grep()}} to filter paths.}
 
 \item{...}{Unused at present.}
 }
