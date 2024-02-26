@@ -1,6 +1,9 @@
 #' Create a temporary directory for a R package
 #'
+#' @param overwrite Default `FALSE`. If `TRUE`, overwrite the NAMESPACE file
+#'   using the same name at the same location.
 #' @inheritParams fs::file_temp
+#' @inheritParams rlang::args_error_context
 #' @importFrom fs is_file is_dir path_dir path_rel path file_exists file_delete
 pkg_dir_temp <- function(path,
                          tmp_dir = tempdir(),
@@ -13,7 +16,7 @@ pkg_dir_temp <- function(path,
   }
 
   if (is_dir(path)) {
-    pkg <- with_project(
+    pkg <- usethis::with_project(
       path,
       basename(getwd()),
       quiet = TRUE
@@ -46,9 +49,20 @@ pkg_dir_temp <- function(path,
   path
 }
 
-#' Create a temporary R package from a script or
+#' Create a temporary R package from a script or folder
 #'
+#' If pkg is not provided, the package name is based on the basename of the
+#' project working directory. By default, the package is created in a temporary
+#' directory and deleted when the session restarts.
+#'
+#' @param pkg Package name. Optional.
+#' @param tmp_dir Directory where temporary package is created. Defaults to
+#'   [tempdir()].
+#' @inheritParams pkg_dir_temp
 #' @inheritParams usethis::create_package
+#' @param overwrite Default `FALSE`. If `TRUE`, overwrite the NAMESPACE file and
+#'   any R scripts at the same location sharing the same names.
+#' @returns Invisibly returns path to the package location
 #' @export
 #' @importFrom usethis create_package
 create_temp_package <- function(path,
@@ -81,11 +95,22 @@ create_temp_package <- function(path,
 
 #' Create a temporary package and use [roxygenise()] to create and load documentation
 #'
-#' Inspired by [document::document()]
+#' Inspired by [document::document()], this package combines calls to
+#' [usethis::create_package()] and [roxygen2::roxygenise()] to create a
+#' temporary package based on a R script or directory of R scripts using roxygen
+#' documentation. The scripts are loaded and the documentation is accessible
+#' within RStudio using `?`.
 #'
 #' @inheritParams create_temp_package
 #' @inheritParams fs::dir_ls
-#' @param ... Unused at present.
+#' @inheritParams roxygen2::roxygenise
+#' @param quiet If `TRUE`, suppress messages from usethis and cli calls. This
+#'   function always suppresses package startup messages when the package is
+#'   loaded by [roxygen2::roxygenise()].
+#' @param markdown If `TRUE` (default), use [usethis::use_roxygen_md()] to
+#'   ensure that Markdown formatted roxygen comments are converted.
+#' @param allow_file If `TRUE`, [path_document()] allows both file and directory
+#'   input paths. If `FALSE`, function errors on file path inputs.
 #' @export
 #' @importFrom fs dir_ls file_copy
 #' @importFrom withr with_dir
@@ -102,8 +127,7 @@ path_document <- function(path,
                           clean = FALSE,
                           quiet = FALSE,
                           allow_file = TRUE,
-                          regexp = "\\.[rR]$",
-                          ...) {
+                          regexp = "\\.[rR]$") {
   if (quiet) {
     rlang::local_options(
       usethis.quiet = quiet,

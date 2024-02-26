@@ -10,6 +10,14 @@ pkg_dir_temp(path, tmp_dir = tempdir(), overwrite = FALSE, call = caller_env())
 \item{path}{A character vector of one or more paths.}
 
 \item{tmp_dir}{The directory the file will be created in.}
+
+\item{overwrite}{Default \code{FALSE}. If \code{TRUE}, overwrite the NAMESPACE file
+using the same name at the same location.}
+
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 }
 \description{
 Create a temporary directory for a R package

@@ -2,7 +2,7 @@
 % Please edit documentation in R/path_document.R
 \name{create_temp_package}
 \alias{create_temp_package}
-\title{Create a temporary R package from a script or}
+\title{Create a temporary R package from a script or folder}
 \usage{
 create_temp_package(
   path,
@@ -17,8 +17,9 @@ create_temp_package(
 )
 }
 \arguments{
-\item{path}{A path. If it exists, it is used. If it does not exist, it is
-created, provided that the parent path exists.}
+\item{path}{A character vector of one or more paths.}
+
+\item{pkg}{Package name. Optional.}
 
 \item{fields}{A named list of fields to add to \code{DESCRIPTION}, potentially
 overriding default values. See \code{\link[usethis:use_description]{use_description()}} for how you can set
@@ -40,7 +41,23 @@ error if not.}
 \item If on RStudio server, the current RStudio project is activated.
 \item Otherwise, the working directory and active project is changed.
 }}
+
+\item{tmp_dir}{Directory where temporary package is created. Defaults to
+\code{\link[=tempdir]{tempdir()}}.}
+
+\item{overwrite}{Default \code{FALSE}. If \code{TRUE}, overwrite the NAMESPACE file and
+any R scripts at the same location sharing the same names.}
+
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
+}
+\value{
+Invisibly returns path to the package location
 }
 \description{
-Create a temporary R package from a script or
+If pkg is not provided, the package name is based on the basename of the
+project working directory. By default, the package is created in a temporary
+directory and deleted when the session restarts.
 }

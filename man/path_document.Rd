@@ -17,8 +17,7 @@ path_document(
   clean = FALSE,
   quiet = FALSE,
   allow_file = TRUE,
-  regexp = "\\\\.[rR]$",
-  ...
+  regexp = "\\\\.[rR]$"
 )
 
 path_roxygenise(
@@ -33,22 +32,52 @@ path_roxygenise(
   clean = FALSE,
   quiet = FALSE,
   allow_file = TRUE,
-  regexp = "\\\\.[rR]$",
-  ...
+  regexp = "\\\\.[rR]$"
 )
 }
 \arguments{
-\item{path}{A path. If it exists, it is used. If it does not exist, it is
-created, provided that the parent path exists.}
+\item{path}{A character vector of one or more paths.}
+
+\item{pkg}{Package name. Optional.}
 
 \item{fields}{A named list of fields to add to \code{DESCRIPTION}, potentially
 overriding default values. See \code{\link[usethis:use_description]{use_description()}} for how you can set
 personalized defaults using package options.}
 
-\item{regexp}{A regular expression (e.g. \verb{[.]csv$}) passed on to \code{\link[=grep]{grep()}} to filter paths.}
+\item{tmp_dir}{Directory where temporary package is created. Defaults to
+\code{\link[=tempdir]{tempdir()}}.}
 
-\item{...}{Unused at present.}
+\item{markdown}{If \code{TRUE} (default), use \code{\link[usethis:use_roxygen_md]{usethis::use_roxygen_md()}} to
+ensure that Markdown formatted roxygen comments are converted.}
+
+\item{overwrite}{Default \code{FALSE}. If \code{TRUE}, overwrite the NAMESPACE file and
+any R scripts at the same location sharing the same names.}
+
+\item{roclets}{Character vector of roclet names to use with package.
+The default, \code{NULL}, uses the roxygen \code{roclets} option,
+which defaults to \code{c("collate", "namespace", "rd")}.}
+
+\item{load_code}{A function used to load all the R code in the package
+directory. The default, \code{NULL}, uses the strategy defined by
+the \code{load} roxygen option, which defaults to \code{\link[roxygen2:load_pkgload]{load_pkgload()}}.
+See \link[roxygen2]{load} for more details.}
+
+\item{clean}{If \code{TRUE}, roxygen will delete all files previously
+created by roxygen before running each roclet.}
+
+\item{quiet}{If \code{TRUE}, suppress messages from usethis and cli calls. This
+function always suppresses package startup messages when the package is
+loaded by \code{\link[roxygen2:roxygenize]{roxygen2::roxygenise()}}.}
+
+\item{allow_file}{If \code{TRUE}, \code{\link[=path_document]{path_document()}} allows both file and directory
+input paths. If \code{FALSE}, function errors on file path inputs.}
+
+\item{regexp}{A regular expression (e.g. \verb{[.]csv$}) passed on to \code{\link[=grep]{grep()}} to filter paths.}
 }
 \description{
-Inspired by \code{\link[document:document]{document::document()}}
+Inspired by \code{\link[document:document]{document::document()}}, this package combines calls to
+\code{\link[usethis:create_package]{usethis::create_package()}} and \code{\link[roxygen2:roxygenize]{roxygen2::roxygenise()}} to create a
+temporary package based on a R script or directory of R scripts using roxygen
+documentation. The scripts are loaded and the documentation is accessible
+within RStudio using \verb{?}.
 }

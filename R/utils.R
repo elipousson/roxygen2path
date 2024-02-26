@@ -1,3 +1,4 @@
+#' @noRd
 as_pkg_name <- function(x) {
   gsub("^[[:digit:]]|(-|_)+", "", x)
 }
@@ -14,6 +15,7 @@ is_package <- function(base_path = proj_get()) {
 }
 
 #' Adapted from usethis:::valid_package_name()
+#' @noRd
 valid_package_name <- function(x) {
   grepl("^[a-zA-Z][a-zA-Z0-9.]+$", x) && !grepl("\\.$", x)
 }
