@@ -163,7 +163,7 @@ path_document <- function(path,
     overwrite = overwrite
   )
 
-  withr::with_dir(
+  usethis::with_project(
     pkg_dir,
     {
       if (markdown) {
@@ -171,7 +171,8 @@ path_document <- function(path,
       }
 
       use_package_doc(FALSE)
-    }
+    },
+    quiet = TRUE
   )
 
   suppressPackageStartupMessages(
@@ -182,6 +183,10 @@ path_document <- function(path,
       clean = clean
     )
   )
+
+  suppressMessages(usethis::proj_get())
+
+  invisible(pkg_dir)
 }
 
 #' [path_roxygenise()] is the same as [path_document()]
